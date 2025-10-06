@@ -42,12 +42,15 @@ Throughput vs parallel streams (grouped by MTU & zerocopy):
 - GitHub Actions – validates JSON→CSV on every push and uploads the CSV artifact
 
 ## What I learned
+- All four configs peaked at **P=4** on my box:
+  - MTU1500 Z → **331.65 Gb/s** (P=4)
+  - MTU1500 noZ → **189.35 Gb/s** (P=4)
+  - MTU9000 Z → **333.16 Gb/s** (P=4)
+  - MTU9000 noZ → **196.68 Gb/s** (P=4)
+- **Jumbo vs 1500 (Z, P=4):** ~+0.5% in this veth/BBR/fq setup — tiny but measurable.
+- **Retransmissions:** MTU1500 showed spikes at **P=4** (3, 76) and **P=8** (771, 1769) while fq+BBR kept them otherwise low.
+- The harness makes it easy to reproduce and compare: raw JSON → CSV → plots; add more factors (CPU pinning, rmem/wmem, GRO/LRO, NIC offloads) and re-run.
 
-- **BBR + fq behaves well as P increases**: throughput grows until ~P=TODO, then tapers.
-- **Jumbo frames help**: MTU 9000 beat MTU 1500 by ~**TODO%** at P=4 with zerocopy.
-- **Zerocopy helps at higher P**: with MTU 9000, Z vs noZ at P=8 was **TODO Gb/s vs TODO Gb/s**.
-- **Retransmissions stayed low** with fq+BBR; spikes only when P≥TODO and MTU=1500.
-- The harness makes it easy to **reproduce and compare**: `make matrix` → CSV → plots.
 
 
 MIT ©
