@@ -1,15 +1,22 @@
 SHELL := /usr/bin/env bash
 
-.PHONY: all setup run summary clean matrix plot
+# Defaults (can be overridden: MTU=1500 make run, etc.)
+MTU ?= 9000
+P   ?= 4
+Z   ?= Z
+DUR ?= 10
+
+.PHONY: all setup run summary plot matrix clean reset
 
 all: summary plot
 
 setup:
-	./scripts/setup_netns.sh
+	# tolerate already-existing namespaces
+	./scripts/setup_netns.sh || true
 
 run:
-	# Example: MTU=9000 P=4 Z=Z DUR=15 make run
-	MTU?=9000 P?=4 Z?=Z DUR?=10 ./scripts/run_iperf.sh
+	# use env-style overrides
+	MTU=$(MTU) P=$(P) Z=$(Z) DUR=$(DUR) ./scripts/run_iperf.sh
 
 summary:
 	./scripts/make_summary.sh
@@ -18,16 +25,17 @@ plot:
 	python3 analysis/plot_summary.py
 
 matrix:
-	# tweak as desired
 	for mtu in 1500 9000; do \
 	  for z in Z noZ; do \
 	    for p in 1 2 4 6 8 10; do \
-	      MTU=$$mtu Z=$$z P=$$p DUR=10 ./scripts/run_iperf.sh; \
+	      MTU=$$mtu Z=$$z P=$$p DUR=$(DUR) ./scripts/run_iperf.sh; \
 	    done; \
 	  done; \
-	done
-	./scripts/make_summary.sh
-	python3 analysis/plot_summary.py
+	done ; \
+	$(MAKE) summary plot
 
 clean:
 	./scripts/clean_netns.sh
+
+# handy: blow away and recreate namespaces
+reset: clean setup
