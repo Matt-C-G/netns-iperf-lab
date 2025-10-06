@@ -54,3 +54,5 @@ Throughput vs parallel streams (grouped by MTU & zerocopy):
 
 
 MIT ©
+
+**Tip:** override the server IP if you change addressing: `make run SRV_IP=10.10.0.2 MTU=9000 P=4 Z=Z`.
