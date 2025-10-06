@@ -39,3 +39,6 @@ clean:
 
 # handy: blow away and recreate namespaces
 reset: clean setup
+
+help: ## list targets
+	@grep -E '^[a-zA-Z_-]+:.*?#' Makefile | sed 's/:.*#/\t- /'
