@@ -1,6 +1,8 @@
 SHELL := /usr/bin/env bash
 
-.PHONY: setup run summary clean matrix
+.PHONY: all setup run summary clean matrix plot
+
+all: summary plot
 
 setup:
 	./scripts/setup_netns.sh
@@ -12,6 +14,9 @@ run:
 summary:
 	./scripts/make_summary.sh
 
+plot:
+	python3 analysis/plot_summary.py
+
 matrix:
 	# tweak as desired
 	for mtu in 1500 9000; do \
@@ -22,6 +27,7 @@ matrix:
 	  done; \
 	done
 	./scripts/make_summary.sh
+	python3 analysis/plot_summary.py
 
 clean:
 	./scripts/clean_netns.sh
