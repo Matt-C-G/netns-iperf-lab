@@ -1,6 +1,6 @@
 # netns-iperf-lab
 
-[![CI](https://github.com/Matt-C-G/netns-iperf-lab/actions/workflows/ci.yml/badge.svg)](https://github.com/Matt-C-G/netns-iperf-lab/actions/workflows/ci.yml)
+[![CI](https://github.com/Matt-C-G/netns-iperf-lab/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/Matt-C-G/netns-iperf-lab/actions/workflows/ci.yml)
 ![License: MIT](https://img.shields.io/badge/license-MIT-blue)
 
 Reproducible `iperf3` experiments using Linux network namespaces, veth, `fq` qdisc, and BBR.  
