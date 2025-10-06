@@ -6,7 +6,16 @@
 Reproducible `iperf3` experiments using Linux network namespaces, veth, `fq` qdisc, and BBR.  
 Includes scripts to **spin up the topology**, **run tests**, **aggregate JSON → CSV**, and **plot** results.
 
+## One-click checks
+- `./scripts/verify_env.sh` — prints kernel, qdisc, BBR, ns wiring
+- `sudo bpftrace scripts/tcp_retrans.bt` — live retransmit counter (kernel)
 
+## Dev shell (Nix optional)
+```bash
+nix develop   # gets iperf3, jq, matplotlib, bpftrace, shellcheck
+```
+
+## TL;DR (one liner)
 ```bash
 make            # builds data/summary.csv and analysis/*.png from existing JSON
 

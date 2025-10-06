@@ -1,0 +1,7 @@
+#!/usr/bin/env bpftrace
+/*
+  Counts TCP retransmits per second.
+  Run: sudo bpftrace scripts/tcp_retrans.bt
+*/
+kprobe:tcp_retransmit_skb { @rps = count(); }
+interval:s:1 { printf("retrans/s: %d\n", @rps); clear(@rps); }
