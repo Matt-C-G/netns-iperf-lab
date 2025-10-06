@@ -46,9 +46,13 @@ Throughput vs parallel streams (grouped by MTU & zerocopy):
 - Makefile – one-command workflows
 - GitHub Actions – validates JSON→CSV on every push and uploads the CSV artifact
 
-## Why this is interesting
-- Network namespaces + fq qdisc + BBR tuning
-- MTU (1500 vs 9000) and zerocopy across P streams
-- Reproducible pipeline: raw → CSV → plots
+## What I learned (from this box)
+
+- **BBR + fq behaves well as P increases**: throughput grows until ~P=TODO, then tapers.
+- **Jumbo frames help**: MTU 9000 beat MTU 1500 by ~**TODO%** at P=4 with zerocopy.
+- **Zerocopy helps at higher P**: with MTU 9000, Z vs noZ at P=8 was **TODO Gb/s vs TODO Gb/s**.
+- **Retransmissions stayed low** with fq+BBR; spikes only when P≥TODO and MTU=1500.
+- The harness makes it easy to **reproduce and compare**: `make matrix` → CSV → plots.
+
 
 MIT ©
