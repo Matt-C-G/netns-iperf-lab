@@ -1,0 +1,16 @@
+name: validate-and-build-summary
+on: [push, pull_request]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install jq
+        run: sudo apt-get update && sudo apt-get install -y jq
+      - name: Rebuild summary
+        run: ./scripts/make_summary.sh
+      - name: Upload summary CSV
+        uses: actions/upload-artifact@v4
+        with:
+          name: summary-csv
+          path: data/summary.csv
