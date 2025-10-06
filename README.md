@@ -18,7 +18,6 @@ nix develop   # gets iperf3, jq, matplotlib, bpftrace, shellcheck
 ```bash
 make            # builds data/summary.csv and analysis/*.png from existing JSON
 
-```   # closes the README.md code fence
 
 ## Quickstart
 make setup                            # create ns1<->ns2 with BBR + fq
