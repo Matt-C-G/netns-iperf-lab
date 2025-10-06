@@ -15,7 +15,6 @@ Includes scripts to **spin up the topology**, **run tests**, **aggregate JSON â†
 nix develop   # gets iperf3, jq, matplotlib, bpftrace, shellcheck
 ```
 
-## TL;DR (one liner)
 ```bash
 make            # builds data/summary.csv and analysis/*.png from existing JSON
 
