@@ -19,12 +19,17 @@ nix develop   # gets iperf3, jq, matplotlib, bpftrace, shellcheck
 make            # builds data/summary.csv and analysis/*.png from existing JSON
 
 
-## Quickstart
-make setup                            # create ns1<->ns2 with BBR + fq
-MTU=9000 P=4 Z=Z DUR=15 make run      # run a single iperf3 test, write JSON
-make summary                          # rebuild data/summary.csv from JSON
-make plot                             # produce analysis/throughput_vs_P.png
-make clean                            # tear down namespaces
+# One-time (or after clean):
+make setup                     # create ns1↔ns2 with BBR + fq
+
+# Run one test and save JSON:
+MTU=9000 P=4 Z=Z DUR=15 make run
+
+# Rebuild CSV + plots from JSON:
+make all                       # = make summary && make plot
+
+# If setup complains namespaces exist:
+./scripts/clean_netns.sh && make setup
 
 ## Result preview
 Throughput vs parallel streams (grouped by MTU & zerocopy):
