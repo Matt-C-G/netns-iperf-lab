@@ -6,7 +6,7 @@
 Reproducible `iperf3` experiments using Linux network namespaces, veth, `fq` qdisc, and BBR.  
 Includes scripts to **spin up the topology**, **run tests**, **aggregate JSON → CSV**, and **plot** results.
 
-## TL;DR (one liner)
+
 ```bash
 make            # builds data/summary.csv and analysis/*.png from existing JSON
 
