@@ -5,6 +5,8 @@ MTU="${MTU:-9000}"          # override: MTU=1500 ./scripts/run_iperf.sh ...
 P="${P:-4}"                 # parallel streams
 Z="${Z:-Z}"                 # Z or noZ
 DUR="${DUR:-10}"            # seconds
+SRV_IP="${SRV_IP:-10.10.0.2}"   # iperf3 server in ns2 (matches setup_netns.sh)
+
 OUT_DIR="data/json"
 mkdir -p "$OUT_DIR"
 
@@ -24,6 +26,6 @@ STAMP="$(date +%Y%m%d-%H%M%S)"
 OUT="${OUT_DIR}/iperf_mtu${MTU}_${Z}_P${P}_${STAMP}.json"
 
 # Run client from ns1 → ns2
-sudo ip netns exec ns1 iperf3 -c 10.0.0.2 -t "$DUR" -P "$P" $ZEROFLAG --json > "$OUT"
+sudo ip netns exec ns1 iperf3 -c "$SRV_IP" -t "$DUR" -P "$P" $ZEROFLAG --json > "$OUT"
 
 echo "Wrote $OUT"
