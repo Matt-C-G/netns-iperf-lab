@@ -16,17 +16,15 @@ nix develop   # gets iperf3, jq, matplotlib, bpftrace, shellcheck
 ```
 ## Summary
 ```bash
-# One-time (or after clean):
-make setup                     # create ns1↔ns2 with BBR + fq
+make setup             # create ns1<->ns2 with BBR + fq
+# If setup complains they exist: ./scripts/clean_netns.sh && make setup
 
-# Run one test and save JSON:
-MTU=9000 P=4 Z=Z DUR=15 make run
+MTU=9000 P=4 Z=Z DUR=15 make run   # run one iperf3 test, write JSON
+make all               # rebuild data/summary.csv + analysis/*.png
 
-# Rebuild CSV + plots from JSON:
-make all                       # = make summary && make plot
+# Matrix (optional): MTU {1500,9000} × Z/noZ × P {1,2,4,6,8,10}
+make matrix
 
-# If setup complains namespaces exist:
-./scripts/clean_netns.sh && make setup
 ```
 ## Result preview
 Throughput vs parallel streams (grouped by MTU & zerocopy):
