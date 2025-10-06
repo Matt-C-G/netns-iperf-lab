@@ -30,7 +30,7 @@ make all                       # = make summary && make plot
 
 # If setup complains namespaces exist:
 ./scripts/clean_netns.sh && make setup
-
+```
 ## Result preview
 Throughput vs parallel streams (grouped by MTU & zerocopy):
 
@@ -46,7 +46,7 @@ Throughput vs parallel streams (grouped by MTU & zerocopy):
 - Makefile – one-command workflows
 - GitHub Actions – validates JSON→CSV on every push and uploads the CSV artifact
 
-## What I learned (from this box)
+## What I learned
 
 - **BBR + fq behaves well as P increases**: throughput grows until ~P=TODO, then tapers.
 - **Jumbo frames help**: MTU 9000 beat MTU 1500 by ~**TODO%** at P=4 with zerocopy.
